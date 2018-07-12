@@ -19,7 +19,7 @@ var eventPool = &sync.Pool{
 }
 
 // ErrorMarshalFunc allows customization of global error marshaling
-var ErrorMarshalFunc = func (err error) interface{} {
+var ErrorMarshalFunc = func(err error) interface{} {
 	return err
 }
 
@@ -261,6 +261,7 @@ func (e *Event) AnErr(key string, err error) *Event {
 		return e.Interface(key, m)
 	}
 }
+
 // Errs adds the field key with errs as an array of serialized errors to the
 // *Event context.
 func (e *Event) Errs(key string, errs []error) *Event {
