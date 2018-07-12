@@ -29,6 +29,7 @@ type Event struct {
 	buf   []byte
 	w     LevelWriter
 	level Level
+	cat   Category
 	done  func(msg string)
 	ch    []Hook // hooks from context
 	h     []Hook
@@ -53,6 +54,7 @@ func newEvent(w LevelWriter, level Level) *Event {
 	e.buf = enc.AppendBeginMarker(e.buf)
 	e.w = w
 	e.level = level
+	e.cat = 0
 	return e
 }
 
@@ -75,6 +77,19 @@ func (e *Event) Enabled() bool {
 	return e != nil
 }
 
+// Category assigns a category to the *Event.
+//
+// If the log level associated to this category allows this event to be logged, a
+// 'category' key will be added with the category name as value; however if the log
+// level doesn't allow this event to be logged, Category will return a nil *Event.
+func (e *Event) Category(cat Category) *Event {
+	if e == nil {
+		return e
+	}
+	e.cat = cat
+	return e
+}
+
 // Msg sends the *Event with msg added as the message field if not empty.
 //
 // NOTICE: once this method is called, the *Event should be disposed.
@@ -83,6 +98,16 @@ func (e *Event) Msg(msg string) {
 	if e == nil {
 		return
 	}
+
+	// the nil-value for the cat field indicates no category.
+	if e.cat != 0 {
+		ok, catname := shouldCategory(e.cat, e.level)
+		if ok {
+			// category disabled for current event level.
+			e.buf = enc.AppendString(enc.AppendKey(e.buf, "category"), catname)
+		}
+	}
+
 	if len(e.ch) > 0 {
 		e.ch[0].Run(e, e.level, msg)
 		if len(e.ch) > 1 {
