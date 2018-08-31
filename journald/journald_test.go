@@ -2,8 +2,8 @@
 
 package journald_test
 
-import "github.com/arl/zerolog"
-import "github.com/arl/zerolog/journald"
+import "github.com/develersrl/zerolog"
+import "github.com/develersrl/zerolog/journald"
 
 func ExampleNewJournalDWriter() {
 	log := zerolog.New(journald.NewJournalDWriter())
