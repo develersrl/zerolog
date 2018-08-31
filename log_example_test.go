@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/arl/zerolog"
+	"github.com/develersrl/zerolog"
 )
 
 func ExampleNew() {

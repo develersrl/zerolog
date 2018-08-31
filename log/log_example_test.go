@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/arl/zerolog"
-	"github.com/arl/zerolog/log"
+	"github.com/develersrl/zerolog"
+	"github.com/develersrl/zerolog/log"
 )
 
 // setup would normally be an init() function, however, there seems

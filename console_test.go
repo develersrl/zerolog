@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/arl/zerolog"
+	"github.com/develersrl/zerolog"
 )
 
 func ExampleConsoleWriter_Write() {

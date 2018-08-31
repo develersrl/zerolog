@@ -6,7 +6,7 @@ package zerolog
 // JSON encoded byte stream.
 
 import (
-	"github.com/arl/zerolog/internal/json"
+	"github.com/develersrl/zerolog/internal/json"
 )
 
 var (
